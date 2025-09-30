@@ -14,7 +14,7 @@ function Logo() {
         <Zap className="h-5 w-5 text-primary" />
       </div>
       <span className="text-xl font-bold font-headline tracking-tight">
-        EchoSphere
+        CoolPeople
       </span>
     </Link>
   );

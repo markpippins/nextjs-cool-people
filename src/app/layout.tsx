@@ -6,7 +6,7 @@ import { MainHeader } from '@/components/main-header';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'EchoSphere',
+  title: 'CoolPeople',
   description: 'A modern social media platform built for connection.',
 };
 

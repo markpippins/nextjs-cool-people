@@ -1,4 +1,4 @@
-# **App Name**: EchoSphere
+# **App Name**: CoolPeople
 
 ## Core Features:
 

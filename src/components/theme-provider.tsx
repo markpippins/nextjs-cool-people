@@ -22,7 +22,7 @@ const ThemeProviderContext = createContext<ThemeProviderState | undefined>(
 
 export function ThemeProvider({
   children,
-  storageKey = 'echosphere-theme',
+  storageKey = 'coolpeople-theme',
 }: {
   children: React.ReactNode;
   storageKey?: string;
