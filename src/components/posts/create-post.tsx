@@ -11,8 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Bot, Loader2, Send, X } from 'lucide-react';
-import { useEffect, useRef, useState, useTransition } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import {
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  useActionState,
+} from 'react';
+import { useFormStatus } from 'react-dom';
 import { createPostAction, suggestTagsAction } from '@/lib/actions';
 import { useToast } from '@/hooks/use-toast';
 
@@ -38,7 +44,7 @@ export function CreatePost() {
   const formRef = useRef<HTMLFormElement>(null);
   const { toast } = useToast();
 
-  const [formState, formAction] = useFormState(createPostAction, {
+  const [formState, formAction] = useActionState(createPostAction, {
     message: '',
     type: '',
   });
@@ -66,7 +72,8 @@ export function CreatePost() {
     if (content.length < 10) {
       toast({
         title: 'Content too short',
-        description: 'Please write at least 10 characters to get tag suggestions.',
+        description:
+          'Please write at least 10 characters to get tag suggestions.',
         variant: 'destructive',
       });
       return;
@@ -113,7 +120,7 @@ export function CreatePost() {
                 placeholder="What's on your mind?"
                 className="w-full border-none focus-visible:ring-0"
                 value={content}
-                onChange={(e) => setContent(e.target.value)}
+                onChange={e => setContent(e.target.value)}
                 rows={3}
               />
             </div>
