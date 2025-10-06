@@ -15,8 +15,8 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/components/auth-provider';
 
@@ -34,7 +34,7 @@ export default function LoginPage() {
   const { toast } = useToast();
   const router = useRouter();
   const { checkAuth } = useAuth();
-  const [state, formAction] = useFormState(loginAction, {
+  const [state, formAction] = useActionState(loginAction, {
     message: '',
     type: '',
   });
