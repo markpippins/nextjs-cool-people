@@ -2,7 +2,7 @@ import type { User, Post, Forum, ForumThread } from './types';
 import { subDays, subHours, subMinutes } from 'date-fns';
 
 export const users: User[] = [
-  { id: 'user-1', name: 'Alice', username: 'alice', avatar: 'avatar1', bio: 'Frontend developer and UI/UX enthusiast.' },
+  { id: 'user-1', name: 'Jeff', username: 'jeff', avatar: 'avatar1', bio: 'Frontend developer and UI/UX enthusiast.' },
   { id: 'user-2', name: 'Bob', username: 'bob', avatar: 'avatar2', bio: 'Backend engineer, loves system design.' },
   { id: 'user-3', name: 'Charlie', username: 'charlie', avatar: 'avatar3', bio: 'AI researcher exploring the future.' },
   { id: 'user-4', name: 'Diana', username: 'diana', avatar: 'avatar4', bio: 'Full-stack dev and avid coffee drinker.' },

@@ -4,6 +4,9 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { MainHeader } from '@/components/main-header';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/components/auth-provider';
+import { ChatProvider } from '@/components/chat/chat-provider';
+import { ChatWindow } from '@/components/chat/chat-window';
 
 export const metadata: Metadata = {
   title: 'CoolPeople',
@@ -30,17 +33,20 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={cn(
-          'min-h-screen bg-background font-body antialiased'
-        )}
+        className={cn('min-h-screen bg-background font-body antialiased')}
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <div className="relative flex min-h-dvh flex-col">
-            <MainHeader />
-            <main className="flex-1">{children}</main>
-          </div>
-          <Toaster />
+          <AuthProvider>
+            <ChatProvider>
+              <div className="relative flex min-h-dvh flex-col">
+                <MainHeader />
+                <main className="flex-1">{children}</main>
+              </div>
+              <ChatWindow />
+              <Toaster />
+            </ChatProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

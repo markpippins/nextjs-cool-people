@@ -1,9 +1,34 @@
 
+'use client';
+
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
-import { Home, LogIn, Rss, UserPlus, Users, Zap } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import {
+  LogIn,
+  LogOut,
+  MessageSquare,
+  Rss,
+  User,
+  UserPlus,
+  Users,
+  Zap,
+  Menu,
+  Settings,
+} from 'lucide-react';
+import { useAuth } from './auth-provider';
+import { logoutAction } from '@/lib/actions';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { useChat } from './chat/chat-provider';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 function Logo() {
   return (
@@ -21,60 +46,111 @@ function Logo() {
   );
 }
 
-function NavLink({
-  href,
-  children,
-  icon,
-  className,
-}: {
-  href: string;
-  children: React.ReactNode;
-  icon: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <Link href={href}>
-      <Button
-        variant="ghost"
-        className={cn('flex items-center gap-2', className)}
-      >
-        {icon}
-        {children}
-      </Button>
-    </Link>
-  );
-}
-
 export function MainHeader() {
+  const { user, checkAuth } = useAuth();
+  const { toggleChat } = useChat();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    await logoutAction();
+    await checkAuth();
+    toast({
+      title: 'Logged Out',
+      description: 'You have been successfully logged out.',
+    });
+    router.push('/');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <Logo />
-        <nav className="ml-10 hidden items-center space-x-2 md:flex">
-          <NavLink href="/" icon={<Home size={16} />}>
-            Home
-          </NavLink>
-          <NavLink href="/feed" icon={<Rss size={16} />}>
-            Feed
-          </NavLink>
-          <NavLink href="/forums" icon={<Users size={16} />}>
-            Forums
-          </NavLink>
-        </nav>
         <div className="ml-auto flex items-center space-x-2">
-          <ThemeToggle />
-          <Link href="/login">
-            <Button variant="ghost">
-              <LogIn size={16} className="mr-2" />
-              Login
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button>
-              <UserPlus size={16} className="mr-2" />
-              Sign Up
-            </Button>
-          </Link>
+          {user ? (
+            <>
+              <Button variant="ghost" onClick={toggleChat} size="icon" className="md:hidden">
+                 <MessageSquare size={16} />
+              </Button>
+               <Button variant="ghost" onClick={toggleChat} className="hidden md:flex">
+                <MessageSquare size={16} className="mr-2" />
+                Chat
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/feed">
+                      <Rss className="mr-2 h-4 w-4" />
+                      <span>Feed</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/profile/${user.username}`}>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                     <Link href="/forums">
+                       <Users className="mr-2 h-4 w-4" />
+                       <span>Forums</span>
+                     </Link>
+                  </DropdownMenuItem>
+                   <DropdownMenuItem asChild>
+                     <Link href="/profile/settings">
+                       <Settings className="mr-2 h-4 w-4" />
+                       <span>Settings</span>
+                     </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <div className="px-2 py-1.5">
+                    <ThemeToggle />
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button variant="ghost">
+                  <LogIn size={16} className="mr-2" />
+                  Login
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button>
+                  <UserPlus size={16} className="mr-2" />
+                  Sign Up
+                </Button>
+              </Link>
+               <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                   <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                   <DropdownMenuSeparator />
+                   <div className="px-2 py-1.5">
+                    <ThemeToggle />
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          )}
         </div>
       </div>
     </header>

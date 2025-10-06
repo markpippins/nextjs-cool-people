@@ -4,7 +4,7 @@ import { PostList } from '@/components/posts/post-list';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { HeroBanner } from '@/components/hero-banner';
-import { UserProfileCard } from '@/components/user-profile-card';
+import { FeedInfoCard } from '@/components/feed-info-card';
 
 export default function FeedPage() {
   return (
@@ -18,7 +18,7 @@ export default function FeedPage() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <aside className="md:col-span-1">
             <div className="sticky top-20">
-              <UserProfileCard />
+              <FeedInfoCard />
             </div>
           </aside>
           <div className="space-y-8 md:col-span-2">
