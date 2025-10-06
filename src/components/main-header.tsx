@@ -51,7 +51,7 @@ export function MainHeader() {
       <div className="container flex h-16 items-center">
         <Logo />
         <nav className="ml-10 hidden items-center space-x-2 md:flex">
-          <NavLink href="/" icon={<Home size={16} />}>
+          <NavLink href="/feed" icon={<Home size={16} />}>
             Home
           </NavLink>
           <NavLink href="/feed" icon={<Rss size={16} />}>

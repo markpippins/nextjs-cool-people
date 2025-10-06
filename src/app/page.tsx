@@ -2,7 +2,7 @@
 import { HeroBanner } from '@/components/hero-banner';
 import { UserProfileCard } from '@/components/user-profile-card';
 
-export default function HomePage() {
+export default function LandingPage() {
   return (
     <div>
       <HeroBanner
