@@ -47,6 +47,12 @@
       "description": "Design forum cover",
       "imageUrl": "https://images.unsplash.com/photo-1629480795367-a183d8633e4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb2xvcnMlMjBwYWxldHRlfGVufDB8fHx8MTc1OTI3NTM4NXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "colors palette"
+    },
+    {
+      "id": "homepage_banner",
+      "description": "Community of people mingling",
+      "imageUrl": "https://images.unsplash.com/photo-1529156069831-1b1236916518?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjb21tdW5pdHl8ZW58MHx8fHwxNzYzOTk4MjM3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "community people"
     }
   ]
 }

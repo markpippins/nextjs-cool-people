@@ -2,15 +2,31 @@ import { CreatePost } from '@/components/posts/create-post';
 import { PostList } from '@/components/posts/post-list';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { HeroBanner } from '@/components/hero-banner';
+import { UserProfileCard } from '@/components/user-profile-card';
 
 export default function HomePage() {
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-8">
-      <div className="space-y-8">
-        <CreatePost />
-        <Suspense fallback={<PostListSkeleton />}>
-          <PostList />
-        </Suspense>
+    <div>
+      <HeroBanner
+        title="Welcome to CoolPeople"
+        subtitle="The place to connect and share with like-minded individuals."
+        imageId="homepage_banner"
+      />
+      <div className="container mx-auto max-w-6xl px-4 py-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <aside className="md:col-span-1">
+            <div className="sticky top-20">
+              <UserProfileCard />
+            </div>
+          </aside>
+          <div className="space-y-8 md:col-span-2">
+            <CreatePost />
+            <Suspense fallback={<PostListSkeleton />}>
+              <PostList />
+            </Suspense>
+          </div>
+        </div>
       </div>
     </div>
   );
