@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { MainHeader } from '@/components/main-header';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/components/auth-provider';
 
 export const metadata: Metadata = {
   title: 'CoolPeople',
@@ -36,11 +37,13 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <div className="relative flex min-h-dvh flex-col">
-            <MainHeader />
-            <main className="flex-1">{children}</main>
-          </div>
-          <Toaster />
+          <AuthProvider>
+            <div className="relative flex min-h-dvh flex-col">
+              <MainHeader />
+              <main className="flex-1">{children}</main>
+            </div>
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
