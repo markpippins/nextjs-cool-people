@@ -1,6 +1,6 @@
 
 import { HeroBanner } from '@/components/hero-banner';
-import { UserProfileCard } from '@/components/user-profile-card';
+import { SignupCard } from '@/components/signup-card';
 
 export default function LandingPage() {
   return (
@@ -14,7 +14,7 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <aside className="md:col-span-1">
             <div className="sticky top-20">
-              <UserProfileCard />
+              <SignupCard />
             </div>
           </aside>
           <div className="space-y-8 md:col-span-2">
