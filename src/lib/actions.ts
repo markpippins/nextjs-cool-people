@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { users } from './data';
 import type { User } from './types';
+import { redirect } from 'next/navigation';
 
 const IS_DEBUG_MODE = process.env.NEXT_PUBLIC_DEBUG_MODE === 'true';
 const AUTH_COOKIE_NAME = 'coolpeople-auth';
@@ -69,6 +70,44 @@ export async function loginAction(prevState: any, formData: FormData) {
   });
 
   return { message: 'Logged in successfully!', type: 'success' };
+}
+
+export async function signupAction(prevState: any, formData: FormData) {
+  if (!IS_DEBUG_MODE) {
+    return {
+      message: 'Signup is only available in debug mode.',
+      type: 'error',
+    };
+  }
+
+  const name = formData.get('name') as string;
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+  const username = name.toLowerCase().replace(/\s/g, '');
+
+  if (!name || !email || !password) {
+    return { message: 'All fields are required.', type: 'error' };
+  }
+
+  // In a real app, you would create a new user in your database.
+  // For debug mode, we'll create a temporary user object.
+  const newUser: User = {
+    id: `user-${Date.now()}`,
+    name,
+    username,
+    avatar: 'avatar4', // default avatar
+    bio: `Just joined CoolPeople!`,
+  };
+
+  // Automatically log the user in by setting the session cookie.
+  cookies().set(AUTH_COOKIE_NAME, JSON.stringify(newUser), {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24, // 1 day
+  });
+
+  // We don't return a state here because we are redirecting.
+  // The redirect needs to be outside the try/catch to be detected by Next.js.
+  redirect('/feed');
 }
 
 export async function logoutAction() {
