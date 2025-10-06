@@ -69,7 +69,6 @@ export function MainHeader() {
         <div className="ml-auto flex items-center space-x-2">
           {user ? (
             <>
-              <ThemeToggle />
               <Button variant="ghost" onClick={toggleChat} size="icon" className="md:hidden">
                  <MessageSquare size={16} />
               </Button>
@@ -111,6 +110,10 @@ export function MainHeader() {
                      </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
+                  <div className="px-2 py-1.5">
+                    <ThemeToggle />
+                  </div>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
@@ -120,7 +123,6 @@ export function MainHeader() {
             </>
           ) : (
             <>
-              <ThemeToggle />
               <Link href="/login">
                 <Button variant="ghost">
                   <LogIn size={16} className="mr-2" />
@@ -133,6 +135,20 @@ export function MainHeader() {
                   Sign Up
                 </Button>
               </Link>
+               <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                   <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                   <DropdownMenuSeparator />
+                   <div className="px-2 py-1.5">
+                    <ThemeToggle />
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           )}
         </div>

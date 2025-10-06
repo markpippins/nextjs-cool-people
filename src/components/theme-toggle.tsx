@@ -15,18 +15,25 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" disabled>
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+      <Button variant="ghost" className="w-full justify-start" disabled>
+        <Sun className="mr-2 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+        Toggle Theme
       </Button>
     );
   }
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme}>
+    <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>
       {theme === 'light' ? (
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+        <>
+          <Sun className="mr-2 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
+          <span>Light Mode</span>
+        </>
       ) : (
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <>
+          <Moon className="mr-2 h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span>Dark Mode</span>
+        </>
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>
