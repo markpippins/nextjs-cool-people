@@ -1,7 +1,8 @@
+
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
-import { Home, LogIn, UserPlus, Users, Zap } from 'lucide-react';
+import { Home, LogIn, Rss, UserPlus, Users, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 function Logo() {
@@ -52,6 +53,9 @@ export function MainHeader() {
         <nav className="ml-10 hidden items-center space-x-2 md:flex">
           <NavLink href="/" icon={<Home size={16} />}>
             Home
+          </NavLink>
+          <NavLink href="/feed" icon={<Rss size={16} />}>
+            Feed
           </NavLink>
           <NavLink href="/forums" icon={<Users size={16} />}>
             Forums
