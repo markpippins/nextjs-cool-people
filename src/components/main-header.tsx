@@ -3,12 +3,23 @@
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ThemeToggle } from './theme-toggle';
-import { Home, LogIn, LogOut, Rss, User, UserPlus, Users, Zap } from 'lucide-react';
+import {
+  Home,
+  LogIn,
+  LogOut,
+  MessageSquare,
+  Rss,
+  User,
+  UserPlus,
+  Users,
+  Zap,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from './auth-provider';
 import { logoutAction } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
+import { useChat } from './chat/chat-provider';
 
 function Logo() {
   return (
@@ -31,27 +42,35 @@ function NavLink({
   children,
   icon,
   className,
+  onClick,
 }: {
-  href: string;
+  href?: string;
   children: React.ReactNode;
   icon: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }) {
-  return (
-    <Link href={href}>
-      <Button
-        variant="ghost"
-        className={cn('flex items-center gap-2', className)}
-      >
-        {icon}
-        {children}
-      </Button>
-    </Link>
+  const content = (
+    <Button
+      variant="ghost"
+      className={cn('flex items-center gap-2', className)}
+      onClick={onClick}
+    >
+      {icon}
+      {children}
+    </Button>
   );
+
+  if (href) {
+    return <Link href={href}>{content}</Link>;
+  }
+
+  return content;
 }
 
 export function MainHeader() {
   const { user, checkAuth } = useAuth();
+  const { toggleChat } = useChat();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -70,10 +89,7 @@ export function MainHeader() {
       <div className="container flex h-16 items-center">
         <Logo />
         {user && (
-           <nav className="ml-10 hidden items-center space-x-2 md:flex">
-            <NavLink href="/feed" icon={<Home size={16} />}>
-              Home
-            </NavLink>
+          <nav className="ml-10 hidden items-center space-x-2 md:flex">
             <NavLink href="/feed" icon={<Rss size={16} />}>
               Feed
             </NavLink>
@@ -86,6 +102,10 @@ export function MainHeader() {
           {user ? (
             <>
               <ThemeToggle />
+              <Button variant="ghost" onClick={toggleChat}>
+                <MessageSquare size={16} className="mr-2" />
+                Chat
+              </Button>
               <Link href={`/profile/${user.username}`}>
                 <Button variant="ghost">
                   <User size={16} className="mr-2" />
@@ -99,6 +119,7 @@ export function MainHeader() {
             </>
           ) : (
             <>
+              <ThemeToggle />
               <Link href="/login">
                 <Button variant="ghost">
                   <LogIn size={16} className="mr-2" />
